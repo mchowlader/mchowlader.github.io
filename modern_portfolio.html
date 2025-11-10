@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mithun Chandra Howlader | .NET Developer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #2d3748;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 0;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #4a5568;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #667eea;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      top: -200px;
+      right: -200px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      bottom: -100px;
+      left: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(20px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-pic {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      color: white;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .hero .subtitle {
+      font-size: 1.3rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    .social-links a:hover {
+      background: white;
+      color: #667eea;
+      transform: translateY(-5px);
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 2rem;
+      background: white;
+    }
+
+    section:nth-child(even) {
+      background: #f7fafc;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #718096;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    /* About Section */
+    .about-content {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .about-text {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      padding: 2rem;
+      border-radius: 15px;
+      border-left: 4px solid #667eea;
+    }
+
+    /* Experience Section */
+    .experience-grid {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .experience-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      border-left: 4px solid #667eea;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .experience-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+    }
+
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .job-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #2d3748;
+    }
+
+    .company {
+      color: #667eea;
+      font-weight: 600;
+    }
+
+    .date {
+      color: #718096;
+      font-size: 0.9rem;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .project-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+    }
+
+    .project-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 1rem;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tech-tag {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      color: #667eea;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .skill-category {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .skill-category h3 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-item {
+      background: #f7fafc;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #4a5568;
+    }
+
+    /* Contact Section */
+    .contact-content {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .contact-info {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-info a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      background: #2d3748;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero .subtitle {
+        font-size: 1.1rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      .experience-header {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="logo">MCH</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="mobile-menu">☰</div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23667eea' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' font-size='80' fill='white' text-anchor='middle' dy='.3em' font-family='Arial'%3EMH%3C/text%3E%3C/svg%3E" alt="Profile" class="profile-pic">
+      <h1>Hi, I'm <span style="color: #ffd700;">Mithun</span></h1>
+      <p class="subtitle">.NET Core Developer | Backend Specialist | DevOps Enthusiast</p>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/mithun-chandra-howlader-b78268a1/" target="_blank" title="LinkedIn">in</a>
+        <a href="https://github.com/mchowlader/" target="_blank" title="GitHub">git</a>
+        <a href="mailto:mi@example.com" title="Email">@</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <h2>About Me</h2>
+      <p class="section-subtitle">Building Scalable Solutions for Enterprise Applications</p>
+      
+      <div class="about-content">
+        <div class="about-text">
+          <p>Results-driven .NET Core Developer with <strong>3+ years of experience</strong> designing, developing, and deploying enterprise web applications. Specialized in backend development with ASP.NET Core, Entity Framework, and database optimization (MSSQL, Oracle).</p>
+          <br>
+          <p>Experienced in containerization with Docker and workflow automation using Apache Airflow and Windows Task Scheduler. Successfully delivered solutions for Bangladesh's largest telecommunications sector, managing high-volume data processing and system integration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience">
+    <div class="container">
+      <h2>Work Experience</h2>
+      <p class="section-subtitle">4+ Years in Software Development</p>
+      
+      <div class="experience-grid">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="job-title">Jr. Software Engineer</div>
+              <div class="company">Prime Tech Solutions Ltd.</div>
+            </div>
+            <div class="date">June 2021 - Present</div>
+          </div>
+          <p>Leading backend development for enterprise applications. Key contributor to Banglalink's Distribution Management System, handling high-volume data processing and system integrations.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">ASP.NET Core</span>
+            <span class="tech-tag">Oracle</span>
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">Apache Airflow</span>
+          </div>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="job-title">Software Engineer Intern</div>
+              <div class="company">DevSkill</div>
+            </div>
+            <div class="date">Jan 2021 - March 2021</div>
+          </div>
+          <p>Contributed to skill engineering research and metrics development for IT professionals. Worked on building assessment tools for software engineers.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">C#</span>
+            <span class="tech-tag">.NET Core</span>
+            <span class="tech-tag">SQL Server</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="container">
+      <h2>Featured Projects</h2>
+      <p class="section-subtitle">Building Real-World Solutions</p>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-title">Distribution Management System</div>
+          <p>Enterprise web application for Banglalink managing supply chain, warehouse inventory, and distributor operations with role-based access and Ericsson API integration.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">.NET Framework</span>
+            <span class="tech-tag">Oracle</span>
+            <span class="tech-tag">ADO.NET</span>
+            <span class="tech-tag">Entity Framework</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-title">DataImporter</div>
+          <p>Excel data processing system with worker services for automated data import, validation, and export capabilities. Features account management and data persistence.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">ASP.NET Core</span>
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">EF Core</span>
+            <span class="tech-tag">Bootstrap</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-title">DevTeam</div>
+          <p>Employee management platform enabling leave and allowance applications with approval workflows for managers and admins.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">ASP.NET Core</span>
+            <span class="tech-tag">SQL Server</span>
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">reCAPTCHA</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-title">Advance Pro</div>
+          <p>Comprehensive inventory management system with RESTful API architecture and optimized stored procedures for data operations.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">ASP.NET Core API</span>
+            <span class="tech-tag">SQL Server</span>
+            <span class="tech-tag">EF Core</span>
+            <span class="tech-tag">Stored Procedures</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <h2>Technical Skills</h2>
+      <p class="section-subtitle">Modern Tech Stack & Tools</p>
+      
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>Backend Development</h3>
+          <div class="skill-list">
+            <span class="skill-item">C#</span>
+            <span class="skill-item">.NET Core</span>
+            <span class="skill-item">ASP.NET Core</span>
+            <span class="skill-item">Entity Framework</span>
+            <span class="skill-item">RESTful API</span>
+            <span class="skill-item">Minimal API</span>
+            <span class="skill-item">ADO.NET</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Database</h3>
+          <div class="skill-list">
+            <span class="skill-item">Microsoft SQL Server</span>
+            <span class="skill-item">Oracle Database</span>
+            <span class="skill-item">MySQL</span>
+            <span class="skill-item">Query Optimization</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>DevOps & Tools</h3>
+          <div class="skill-list">
+            <span class="skill-item">Docker</span>
+            <span class="skill-item">GitHub Actions</span>
+            <span class="skill-item">IIS Server</span>
+            <span class="skill-item">Nginx</span>
+            <span class="skill-item">AWS (EC2, VPC)</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>ETL & Automation</h3>
+          <div class="skill-list">
+            <span class="skill-item">Apache Airflow</span>
+            <span class="skill-item">Python Scripting</span>
+            <span class="skill-item">Batch Scripting</span>
+            <span class="skill-item">Task Scheduler</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <h2>Let's Connect</h2>
+      <p class="section-subtitle">Open to new opportunities and collaborations</p>
+      
+      <div class="contact-content">
+        <a href="cv.pdf" class="btn-primary" target="_blank">Download CV</a>
+        <div class="contact-info">
+          <p>Email: <a href="mailto:mi@example.com">mi@example.com</a></p>
+          <p>Location: Dhaka, Bangladesh</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Mithun Chandra Howlader. All rights reserved.</p>
+  </footer>
+</body>
+</html>
