@@ -103,29 +103,11 @@
       padding: 1rem;
       border-radius: 10px;
       transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .sidebar nav ul li a::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 0;
-      height: 100%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      transition: width 0.3s;
-      z-index: -1;
-    }
-
-    .sidebar nav ul li a:hover::before {
-      width: 100%;
     }
 
     .sidebar nav ul li a:hover {
-      color: white;
-      transform: translateX(10px);
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
     }
 
     .sidebar nav ul li a.active {
@@ -329,31 +311,36 @@
       font-size: 0.75rem;
     }
 
-    /* Back Button */
+    /* Back Button - Fixed Round */
     .back-btn {
       position: fixed;
-      bottom: 2rem;
-      left: 2rem;
-      background: rgba(255, 255, 255, 0.95);
-      color: #667eea;
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 700;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s;
-      z-index: 100;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
+      justify-content: center;
+      background: rgba(102, 126, 234, 0.95);
+      color: white;
+      border-radius: 50%;
+      text-decoration: none;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      font-size: 1.1rem;
+      cursor: pointer;
     }
 
     .back-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
       background: #667eea;
-      color: white;
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    }
+
+    /* Hide extra back buttons */
+    .back-btn-bottom {
+      display: none;
     }
 
     /* Responsive */
@@ -389,8 +376,12 @@
       }
 
       .back-btn {
-        bottom: 1rem;
         left: 1rem;
+        bottom: auto;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        padding: 0;
       }
     }
   </style>
@@ -421,9 +412,7 @@
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <!-- Back Button -->
-  <a href="index.html" class="back-btn">
-    ← Back
-  </a>
+  <a href="index.html" class="back-btn" aria-label="Home">←</a>
 
   <!-- Main Content -->
   <div class="container">
@@ -500,6 +489,11 @@
       menuToggle.classList.toggle('active');
     }
 
+    // Back button
+    function goBack() {
+      window.history.back();
+    }
+
     // Close menu on escape key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
@@ -510,5 +504,6 @@
       }
     });
   </script>
+  <!-- <footer class="site-footer">© 2025 MCH — All rights reserved @MCH</footer> -->
 </body>
 </html>

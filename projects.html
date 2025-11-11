@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experience & Projects | Mithun Chandra Howlader</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 2rem;
+    }
+
+    /* Menu Toggle Button */
+    .menu-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s;
+    }
+
+    .menu-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #667eea;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Sidebar Menu */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -350px;
+      width: 350px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      padding: 5rem 2rem 2rem;
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+    }
+
+    .sidebar nav ul li {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar nav ul li a {
+      text-decoration: none;
+      color: #2d3748;
+      font-size: 1.2rem;
+      font-weight: 600;
+      display: block;
+      padding: 1rem;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+
+    .sidebar nav ul li a:hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+    }
+
+    .sidebar nav ul li a.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: white;
+    }
+
+    .page-header .icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.3rem;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .page-header p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.95rem;
+    }
+
+    /* Section Divider */
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Experience Card */
+    .experience-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 1.8rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .experience-card:hover {
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+    }
+
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.8rem;
+      gap: 1rem;
+    }
+
+    .job-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+
+    .company {
+      color: #667eea;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .job-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+      color: #718096;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .job-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .job-description {
+      color: #4a5568;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-top: 0.8rem;
+    }
+
+    /* Project Card */
+    .project-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 1.8rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+    }
+
+    .project-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 0.6rem;
+    }
+
+    .project-description {
+      color: #4a5568;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .tech-tag {
+      display: inline-block;
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Back Button */
+    /* Back Button - Fixed Round */
+    .back-btn {
+      position: fixed;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(102, 126, 234, 0.95);
+      color: white;
+      border-radius: 50%;
+      text-decoration: none;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      background: #667eea;
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    }
+
+    /* Hide extra back buttons */
+    .back-btn-bottom {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .menu-toggle {
+        top: 1rem;
+        right: 1rem;
+      }
+
+      .page-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+
+      .experience-header {
+        flex-direction: column;
+      }
+
+      .experience-card,
+      .project-card {
+        padding: 1.2rem;
+      }
+
+      .sidebar {
+        width: 280px;
+        right: -280px;
+      }
+
+      .back-btn {
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu Toggle Button -->
+  <div class="menu-toggle" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Sidebar Menu -->
+  <div class="sidebar" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="education.html">🎓 Education</a></li>
+        <li><a href="experience.html">💼 Experience</a></li>
+        <li><a href="projects.html" class="active">🚀 Projects</a></li>
+        <li><a href="skills.html">⚡ Skills & Technology</a></li>
+        <li><a href="contact.html">📧 Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- Back Button -->
+  <a href="index.html" class="back-btn" aria-label="Home">←</a>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="icon">💼</div>
+      <h1>Experience & Projects</h1>
+      <p>My Professional Journey & Work</p>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="section">
+      <div class="section-title">
+        <span>🚀 Projects</span>
+      </div>
+
+      <!-- Project 1 -->
+      <div class="project-card">
+        <div class="project-name">Distribution Management System (DMS)</div>
+        <div class="project-description">
+          The Banglalink Distribution Management System (DMS) is a web-based application that manages supply chain and logistics activities, including warehouse inventory and distributor management. It offers role-based access, report viewing, and export, with API integration from Ericsson.
+        </div>
+        <div class="tech-stack">
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">.NET Framework 4.7</span>
+          <span class="tech-tag">Oracle</span>
+          <span class="tech-tag">ADO.NET</span>
+          <span class="tech-tag">Entity Framework</span>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <div class="project-name">Advance Pro</div>
+        <div class="project-description">
+          Advance Pro is an Inventory Management System with comprehensive features for managing stock levels and supply chains efficiently.
+        </div>
+        <div class="tech-stack">
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">ASP.NET Core Web API</span>
+          <span class="tech-tag">SQL Server 2018</span>
+          <span class="tech-tag">Entity Framework Core</span>
+          <span class="tech-tag">Stored Procedures</span>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <div class="project-name">DataImporter</div>
+        <div class="project-description">
+          In this project, users can create accounts and groups to upload Excel data, which is processed by a worker service and stored in a SQL Server database. Users can confirm the data before uploading, and the stored data is automatically deleted after completion. Additionally, data can be re-exported into an Excel file.
+        </div>
+        <div class="tech-stack">
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">ASP.NET Core</span>
+          <span class="tech-tag">Bootstrap</span>
+          <span class="tech-tag">Entity Framework</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">reCAPTCHA v2</span>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card">
+        <div class="project-name">DevTeam</div>
+        <div class="project-description">
+          This application allows companies to create accounts for employee management. Employees can apply for leave and allowances, while company admins or managers can approve these requests.
+        </div>
+        <div class="tech-stack">
+          <span class="tech-tag">ASP.NET Core</span>
+          <span class="tech-tag">Bootstrap</span>
+          <span class="tech-tag">Entity Framework</span>
+          <span class="tech-tag">SQL Server 2019</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">reCAPTCHA v3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      const menuToggle = document.querySelector('.menu-toggle');
+      
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    }
+
+    // Back button
+    function goBack() {
+      window.history.back();
+    }
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar.classList.contains('active')) {
+          toggleMenu();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

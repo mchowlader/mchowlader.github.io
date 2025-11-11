@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Mithun Chandra Howlader</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 2rem;
+    }
+
+    /* Menu Toggle Button */
+    .menu-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s;
+    }
+
+    .menu-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #667eea;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Sidebar Menu */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -350px;
+      width: 350px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      padding: 5rem 2rem 2rem;
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+    }
+
+    .sidebar nav ul li {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar nav ul li a {
+      text-decoration: none;
+      color: #2d3748;
+      font-size: 1.2rem;
+      font-weight: 600;
+      display: block;
+      padding: 1rem;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+
+    .sidebar nav ul li a:hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+    }
+
+    .sidebar nav ul li a.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Back Button - Fixed Round */
+    .back-btn {
+      position: fixed;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(102, 126, 234, 0.95);
+      color: white;
+      border-radius: 50%;
+      text-decoration: none;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      background: #667eea;
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-bottom: 3rem;
+      text-align: center;
+      animation: fadeInDown 0.6s ease-out;
+    }
+
+    .page-header .icon {
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .page-header p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Contact Content */
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-form h2 {
+      font-size: 1.5rem;
+      color: #2d3748;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      color: #2d3748;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 15px rgba(102, 126, 234, 0.2);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+    }
+
+    .submit-btn:active {
+      transform: translateY(-1px);
+    }
+
+    /* Contact Info */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(102, 126, 234, 0.3);
+    }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-icon {
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-card h3 {
+      font-size: 1.2rem;
+      color: #2d3748;
+    }
+
+    .info-card p {
+      color: #4a5568;
+      margin-top: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .info-card a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .info-card a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+
+    /* Social Links */
+    .social-links-section {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .social-links-section h3 {
+      font-size: 1.2rem;
+      color: #2d3748;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .social-btn {
+      padding: 0.5rem 0.9rem;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Response Message */
+    .form-message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      display: none;
+      font-weight: 600;
+    }
+
+    .form-message.success {
+      background: rgba(72, 187, 120, 0.2);
+      color: #22543d;
+      display: block;
+    }
+
+    .form-message.error {
+      background: rgba(245, 101, 101, 0.2);
+      color: #742a2a;
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .back-btn {
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        padding: 0;
+      }
+
+      .menu-toggle {
+        top: 1rem;
+        right: 1rem;
+      }
+
+      .page-header h1 {
+        font-size: 2rem;
+      }
+
+      .page-header .icon {
+        font-size: 2.5rem;
+      }
+
+      .contact-content {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form,
+      .info-card,
+      .social-links-section {
+        padding: 1.5rem;
+      }
+
+      .social-btn {
+        flex: 1 1 calc(50% - 0.5rem);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .contact-form h2,
+      .social-links-section h3 {
+        font-size: 1.1rem;
+      }
+
+      .social-btn {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu Toggle Button -->
+  <div class="menu-toggle" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Sidebar Menu -->
+  <div class="sidebar" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="education.html">🎓 Education</a></li>
+        <li><a href="experience.html">💼 Experience</a></li>
+        <li><a href="projects.html">🚀 Projects</a></li>
+        <li><a href="skills.html">⚡ Skills & Technology</a></li>
+        <li><a href="contact.html" class="active">📧 Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- Back Button -->
+  <a href="index.html" class="back-btn" aria-label="Home">←</a>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="icon">📧</div>
+      <h1>Get In Touch</h1>
+      <p>Let's connect and discuss opportunities</p>
+    </div>
+
+    <!-- Contact Content -->
+    <div class="contact-content">
+      <!-- Contact Form -->
+      <div class="contact-form">
+        <h2>📝 Send Me a Message</h2>
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Your Name *</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Your Email *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <input type="text" id="subject" name="subject" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Send Message 🚀</button>
+          <div class="form-message" id="formMessage"></div>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <!-- Email Card -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-icon">✉️</div>
+            <h3>Email</h3>
+          </div>
+          <p>Reach out via email for any inquiries or collaboration opportunities.</p>
+          <a href="mailto:mithun.howlader222@gmail.com">mithun.howlader222@gmail.com</a>
+        </div>
+
+        <!-- Location Card -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-icon">📍</div>
+            <h3>Location</h3>
+          </div>
+          <p>Based in Bangladesh, available for remote work and projects worldwide.</p>
+          <p><strong>Bangladesh</strong></p>
+        </div>
+
+        <!-- Response Time Card -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-icon">⏱️</div>
+            <h3>Response Time</h3>
+          </div>
+          <p>I typically respond to inquiries within 24-48 hours.</p>
+          <p style="margin-top: 0.8rem; font-size: 0.9rem; color: #667eea;">Active Mon-Fri, 9 AM - 6 PM (GMT+6)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Links Section -->
+    <div class="social-links-section" style="margin-top: 2rem;">
+      <h3>🌐 Connect With Me</h3>
+      <div class="social-buttons">
+        <a href="https://www.linkedin.com/in/mithun-chandra-howlader-b78268a1/" target="_blank" class="social-btn">
+          💼 LinkedIn
+        </a>
+        <a href="https://github.com/mchowlader/" target="_blank" class="social-btn">
+          🐙 GitHub
+        </a>
+        <a href="mailto:mithun.howlader222@gmail.com" class="social-btn">
+          📧 Email
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      const menuToggle = document.querySelector('.menu-toggle');
+      
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    }
+
+    // Set active menu item
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      const menuLinks = document.querySelectorAll('.sidebar nav ul li a');
+      
+      menuLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    });
+
+    // Handle form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      const formMessage = document.getElementById('formMessage');
+
+      // Validate form
+      if (!name || !email || !subject || !message) {
+        formMessage.textContent = 'Please fill in all fields';
+        formMessage.classList.add('error');
+        formMessage.classList.remove('success');
+        return;
+      }
+
+      // Create mailto link (simple solution)
+      const mailtoLink = `mailto:mithun.howlader222@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+      
+      // Show success message
+      formMessage.textContent = '✓ Message prepared! Your email client will open.';
+      formMessage.classList.add('success');
+      formMessage.classList.remove('error');
+
+      // Clear form after 2 seconds and open email client
+      setTimeout(() => {
+        window.location.href = mailtoLink;
+        this.reset();
+        formMessage.textContent = '';
+        formMessage.classList.remove('success');
+      }, 1000);
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar.classList.contains('active')) {
+          toggleMenu();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
