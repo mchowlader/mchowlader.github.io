@@ -196,33 +196,22 @@
       }
     }
 
-    /* Education Timeline */
-    .education-timeline {
-      position: relative;
-      padding-left: 3rem;
-    }
-
-    .education-timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 2px;
+    /* Education Grid */
+    .education-grid {
+      display: grid;
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     /* Education Card */
     .education-card {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      padding: 2rem;
-      border-radius: 20px;
-      margin-bottom: 2rem;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-      position: relative;
-      transition: all 0.3s;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       animation: fadeInUp 0.8s ease-out;
       animation-fill-mode: both;
     }
@@ -234,99 +223,131 @@
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(50px) scale(0.95);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
       }
     }
 
     .education-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.35);
     }
 
-    .education-card::before {
+    /* Card Header with Gradient */
+    .card-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header::before {
       content: '';
       position: absolute;
-      left: -3rem;
-      top: 2rem;
-      width: 20px;
-      height: 20px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 50%;
-      border: 4px solid rgba(255, 255, 255, 0.95);
-      box-shadow: 0 3px 10px rgba(102, 126, 234, 0.5);
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
     }
 
-    .degree-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .degree-info h2 {
-      font-size: 1.8rem;
-      color: #2d3748;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.8; }
     }
 
     .degree-icon {
-      font-size: 1.5rem;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .degree-title {
+      font-size: 1.6rem;
+      color: white;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
     .institution {
-      color: #667eea;
-      font-size: 1.2rem;
-      font-weight: 600;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 1.1rem;
+      font-weight: 500;
       margin-bottom: 0.5rem;
     }
 
+    .duration {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Card Body */
+    .card-body {
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .location-info {
+      flex: 1;
+    }
+
     .location {
-      color: #718096;
-      font-size: 1rem;
+      color: #4a5568;
+      font-size: 1.1rem;
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.5rem;
+      font-weight: 500;
     }
 
-    .gpa-box {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 15px;
+    /* Simple Grade Display */
+    .grade-display {
       text-align: center;
-      min-width: 130px;
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+      padding: 1rem 1.5rem;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      border-radius: 15px;
+      border: 2px solid rgba(102, 126, 234, 0.2);
     }
 
-    .gpa-label {
-      font-size: 0.9rem;
-      opacity: 0.9;
+    .grade-value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
       margin-bottom: 0.3rem;
     }
 
-    .gpa-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
-
-    .duration {
-      display: inline-block;
-      background: rgba(102, 126, 234, 0.1);
+    .grade-label {
+      font-size: 0.85rem;
       color: #667eea;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.95rem;
       font-weight: 600;
-      margin-top: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     /* Back Button */
@@ -369,23 +390,21 @@
         font-size: 3rem;
       }
 
-      .education-timeline {
-        padding-left: 2rem;
+      .education-grid {
+        padding-left: 0;
       }
 
       .education-card {
-        padding: 1.5rem;
+        margin-bottom: 0;
       }
 
-      .degree-header {
+      .card-body {
         flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
       }
 
-      .degree-info h2 {
-        font-size: 1.4rem;
-      }
-
-      .gpa-box {
+      .grade-display {
         width: 100%;
       }
 
@@ -442,64 +461,61 @@
       <p>My Academic Journey</p>
     </div>
 
-    <!-- Education Timeline -->
-    <div class="education-timeline">
+    <!-- Education Grid -->
+    <div class="education-grid">
       <!-- Bachelor's Degree -->
       <div class="education-card">
-        <div class="degree-header">
-          <div class="degree-info">
-            <h2>
-              <span class="degree-icon">🎯</span>
-              B.Sc. in Computer Science & Engineering
-            </h2>
-            <div class="institution">Green University of Bangladesh</div>
+        <div class="card-header">
+          <div class="degree-icon">🎓</div>
+          <h2 class="degree-title">B.Sc. in Computer Science & Engineering</h2>
+          <div class="institution">Green University of Bangladesh</div>
+          <span class="duration">⏱️ 2017 - 2022</span>
+        </div>
+        <div class="card-body">
+          <div class="location-info">
             <div class="location">📍 Dhaka, Bangladesh</div>
-            <span class="duration">⏱️ 2017 - 2022</span>
           </div>
-          <div class="gpa-box">
-            <div class="gpa-label">CGPA</div>
-            <div class="gpa-value">3.07</div>
-            <div class="gpa-label">Out of 4.00</div>
+          <div class="grade-display">
+            <div class="grade-value">3.07</div>
+            <div class="grade-label">CGPA / 4.00</div>
           </div>
         </div>
       </div>
 
       <!-- Diploma -->
       <div class="education-card">
-        <div class="degree-header">
-          <div class="degree-info">
-            <h2>
-              <span class="degree-icon">⚡</span>
-              Diploma in Electronics Technology
-            </h2>
-            <div class="institution">Barguna Polytechnic Institute</div>
+        <div class="card-header">
+          <div class="degree-icon">⚡</div>
+          <h2 class="degree-title">Diploma in Electronics Technology</h2>
+          <div class="institution">Barguna Polytechnic Institute</div>
+          <span class="duration">⏱️ 2011 - 2015</span>
+        </div>
+        <div class="card-body">
+          <div class="location-info">
             <div class="location">📍 Barguna, Bangladesh</div>
-            <span class="duration">⏱️ 2011 - 2015</span>
           </div>
-          <div class="gpa-box">
-            <div class="gpa-label">CGPA</div>
-            <div class="gpa-value">3.11</div>
-            <div class="gpa-label">Out of 4.00</div>
+          <div class="grade-display">
+            <div class="grade-value">3.11</div>
+            <div class="grade-label">CGPA / 4.00</div>
           </div>
         </div>
       </div>
 
       <!-- SSC -->
       <div class="education-card">
-        <div class="degree-header">
-          <div class="degree-info">
-            <h2>
-              <span class="degree-icon">📚</span>
-              Secondary School Certificate (SSC)
-            </h2>
-            <div class="institution">Kalmegha Muslim Secondary School</div>
+        <div class="card-header">
+          <div class="degree-icon">📚</div>
+          <h2 class="degree-title">Secondary School Certificate (SSC)</h2>
+          <div class="institution">Kalmegha Muslim Secondary School</div>
+          <span class="duration">⏱️ 2006 - 2011</span>
+        </div>
+        <div class="card-body">
+          <div class="location-info">
             <div class="location">📍 Pathorghata, Bangladesh</div>
-            <span class="duration">⏱️ 2006 - 2011</span>
           </div>
-          <div class="gpa-box">
-            <div class="gpa-label">GPA</div>
-            <div class="gpa-value">4.50</div>
-            <div class="gpa-label">Out of 5.00</div>
+          <div class="grade-display">
+            <div class="grade-value">4.50</div>
+            <div class="grade-label">GPA / 5.00</div>
           </div>
         </div>
       </div>
